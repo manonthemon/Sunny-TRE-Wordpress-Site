@@ -8,3 +8,8 @@ function sunny_files() {
 
 add_action('wp_enqueue_scripts' , 'sunny_files');
 
+function sunny_features () {
+    add_theme_support('title-tag');
+}
+add_action( 'after_setup_theme', 'sunny_features');
+
