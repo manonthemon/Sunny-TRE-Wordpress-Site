@@ -19,7 +19,7 @@
       <?php
       $today = date('Ymd');
       $homepageEvents = new WP_Query([
-        'posts_per_page' => -1,
+        'posts_per_page' => 2,
         'post_type' => 'event',
         'orderby' => 'meta_value_num',
         'meta_key' => 'event_date',
@@ -53,7 +53,6 @@
               }
               ?>
             </span>
-
           </a>
           <div class="event-summary__content">
             <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h5>
