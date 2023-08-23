@@ -26,12 +26,22 @@
         $homepageEvents->the_post(); ?>
         <div class="event-summary">
           <a class="event-summary__date t-center" href="<?php the_permalink() ?>">
-            <span class="event-summary__month">
-              <?php the_time('M'); ?>
+
+          <span class="event-summary__month"><?php 
+    $eventDate = DateTime::createFromFormat('d/m/Y', get_field('event_date'));
+    if ($eventDate) {
+        echo $eventDate->format('M');
+    }
+?></span>
+  <span class="event-summary__day">
+  <?php 
+    $eventDate = DateTime::createFromFormat('d/m/Y', get_field('event_date'));
+    if ($eventDate) {
+        echo $eventDate->format('d');
+    }
+?>
             </span>
-            <span class="event-summary__day">
-              <?php the_time('D'); ?>
-            </span>
+
           </a>
           <div class="event-summary__content">
             <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h5>
@@ -47,11 +57,11 @@
         </div>
       <?php }
       ?>
-
       <p class="t-center no-margin"><a href="<?php echo site_url("/events"); ?>" class="btn btn--blue">View All
           Events</a></p>
     </div>
   </div>
+
   <div class="full-width-split__two">
     <div class="full-width-split__inner">
       <h2 class="headline headline--small-plus t-center">From The Blog</h2>
@@ -135,13 +145,13 @@
     <div class="full-width-split__inner">
       <h2 class="headline headline--small-plus t-center">Latest Testimonials</h2>
       <?php
-      $homepageEvents = new WP_Query([
+      $homepageTestimonials = new WP_Query([
         'posts_per_page' => 3,
         'post_type' => 'testimonial'
       ]);
 
-      while ($homepageEvents->have_posts()) {
-        $homepageEvents->the_post(); ?>
+      while ($homepageTestimonials->have_posts()) {
+        $homepageTestimonials->the_post(); ?>
         <div class="event-summary">
           <a class="event-summary__date t-center" href="<?php the_permalink() ?>">
             <span class="event-summary__month">
