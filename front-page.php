@@ -5,10 +5,9 @@
     style="background-image: url(<?php echo get_theme_file_uri('images/library-hero.jpg') ?>)"></div>
   <div class="page-banner__content container t-center c-white">
     <h1 class="headline headline--large">Welcome!</h1>
-    <h2 class="headline headline--medium">We think you&rsquo;ll like it here.</h2>
-    <h3 class="headline headline--small">Why don&rsquo;t you check out the <strong>major</strong> you&rsquo;re
-      interested in?</h3>
-    <a href="<?php echo get_post_type_archive_link('service'); ?>" class="btn btn--large btn--blue">Our Services</a>
+    <h2 class="headline headline--medium">Learn more about Tension Release Exercises</h2>
+    <h3 class="headline headline--small">How can I help you today?</h3>
+    <a href="<?php echo get_post_type_archive_link('service'); ?>" class="btn btn--large btn--blue">My Services</a>
   </div>
 </div>
 
