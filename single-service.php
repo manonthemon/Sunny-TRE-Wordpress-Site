@@ -47,7 +47,7 @@ while (have_posts()) {
         [
           'key' => 'related_services',
           'compare' => 'LIKE',
-          'value' => '"' . get_the_ID() . '"'
+          'value' => '"'.get_the_ID().'"'
         ]
       ],
     ]);
