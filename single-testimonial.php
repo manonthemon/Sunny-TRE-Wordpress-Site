@@ -19,9 +19,18 @@ while (have_posts()) {
     </div>
 
     <div class="container container--narrow page-section">
-        
+
         <div class="generic-content">
-            <?php the_content(); ?>
+            <div class="grow group">
+
+                <div class="one-third">
+                    <?php the_post_thumbnail();?>
+                </div>
+
+                <div class="two-thirds">
+                    <?php the_content();?>
+                </div>
+            </div>
         </div>
 
     </div>
