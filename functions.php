@@ -51,6 +51,8 @@ function sunny_features () {
     add_image_size('serviceLandscape', 400, 260, true);
     add_image_size('servicePortrait', 480, 650, true);
     add_image_size('pageBanner', 1500, 350, true);
+    add_image_size('postFeatured', 800, 600, true);
+
 }
 add_action( 'after_setup_theme', 'sunny_features');
 
@@ -78,3 +80,4 @@ function sunny_adjust_queries($query) {
 }
 };
 add_action('pre_get_posts', 'sunny_adjust_queries');
+

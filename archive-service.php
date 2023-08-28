@@ -20,7 +20,8 @@ pageBanner([
     create imaginative techniques which can be utilised to change the quality of your inner experience and enable
     emotional state regulation. <strong>If you need coaching through a particular difficulty, contact me for a
       consultation.</strong></p>
-  <p>See my contact page to reach me.</p>
+      <br>
+
 
   <?php
   echo '<ul class="professor-cards">';
