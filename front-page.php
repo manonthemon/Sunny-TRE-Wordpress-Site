@@ -24,12 +24,12 @@
         'meta_key' => 'event_date',
         'order' => 'ASC',
         'meta_query' => [
-[
-  'key' => 'event_date',
-  'compare' => '>=',
-  'value' => $today,
-  'type' => 'numeric'
-]
+          [
+            'key' => 'event_date',
+            'compare' => '>=',
+            'value' => $today,
+            'type' => 'numeric'
+          ]
         ],
       ]);
       while ($homepageEvents->have_posts()) {
@@ -112,6 +112,10 @@
   </div>
 </div>
 
+
+
+
+
 <div class="hero-slider">
   <div data-glide-el="track" class="glide__track">
     <div class="glide__slides">
@@ -150,4 +154,45 @@
 </div>
 
 
-<?php get_footer();?>
+<!-- TESTIMONIALS SECTION  -->
+
+
+
+<?php
+
+$homepageTestimonials = new WP_Query([
+  'posts_per_page' => 3,
+  'post_type' => 'testimonial'
+]);
+
+while ($homepageTestimonials->have_posts()) {
+  $homepageTestimonials->the_post(); ?>
+
+
+
+
+  <div class="event-summary">
+    <div class="event-summary__content">
+      <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h5>
+      <p>
+        <?php if (has_excerpt()) {
+          echo get_the_excerpt();
+        } else {
+          echo wp_trim_words(get_the_content(), 20);
+        }
+        ?> <a href="<?php the_permalink() ?>" class="nu gray">Read
+          more</a>
+      </p>
+    </div>
+  </div>
+
+
+
+  <?php
+}
+?>
+
+
+
+
+<?php get_footer(); ?>
