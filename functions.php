@@ -1,23 +1,18 @@
 <?php 
-
 function pageBanner($args = array()) {
-    
     // Provide default values for 'title' and 'subtitle' if they are missing in $args
     $title = isset($args['title']) ? $args['title'] : get_the_title();
     $subtitle = isset($args['subtitle']) ? $args['subtitle'] : get_field('page_banner_subtitle');
-    
-    // Provide a default photo URL if 'photo' is missing in $args and custom field is not set
-    if (isset($args['photo'])) {
-        $photo_url = $args['photo'];
-    } elseif (get_field('page_banner_background_image')) {
-        $photo_url = get_field('page_banner_background_image')['sizes']['pageBanner'];
-    } else {
-        $photo_url = get_theme_file_uri('/images/ocean.jpg');
-    }
+
+    // Use the provided 'photo' URL if available, otherwise use the default
+    $photo_url = isset($args['photo']) ? $args['photo'] : get_theme_file_uri('/images/ocean.jpg');
+
+    // Set the background color (replace #ff9900 with your desired color code)
+    $background_color = isset($args['background_color']) ? $args['background_color'] : '#fffff';
 
     // Output the HTML
     ?>
-    <div class="page-banner">
+    <div class="page-banner" style="background-color: <?php echo $background_color; ?>;">
         <div class="page-banner__bg-image"
              style="background-image: url(<?php echo $photo_url; ?>)"></div>
         <div class="page-banner__content container container--narrow">
@@ -32,6 +27,8 @@ function pageBanner($args = array()) {
     <?php
     // End HTML output
 }
+
+
 
 function sunny_files() {
     wp_enqueue_script('main_sunny_js' , get_theme_file_uri('/js/scripts-bundled.js'), NULL, microtime(), true );
