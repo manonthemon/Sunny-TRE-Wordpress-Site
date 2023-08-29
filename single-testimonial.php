@@ -18,8 +18,6 @@ while (have_posts()) {
       <?php the_content(); ?>
     </div>
 
- 
-
   <?php }
 get_footer();
 ?>

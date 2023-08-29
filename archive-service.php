@@ -22,7 +22,6 @@ pageBanner([
       consultation.</strong></p>
       <br>
 
-
   <?php
   echo '<ul class="professor-cards">';
   while (have_posts()) {
@@ -40,7 +39,6 @@ pageBanner([
   echo '</ul>';
   echo paginate_links();
   ?>
-
 </div>
 
 <?php get_footer(); ?>

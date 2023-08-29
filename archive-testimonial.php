@@ -8,8 +8,6 @@ pageBanner([
 
 <div class="container container--narrow page-section">
 
-
-
 <p>There are many people who have had amazing experiences with TRE. In my personal experience, I have seen clients experience profound insights and tension releases from practising TRE. The ability of TRE to work on healing on so many different levels, the effects can be noticeable and profound.&nbsp;</p>
 <p>For a compilation of testimonials of TRE as a healing practise, <a href="https://traumaprevention.com/testimonials/">please click here</a> to read what others worldwide have experienced through using TRE.&nbsp;</p>
 <p>Below are some comments from my clients.</p>
@@ -34,7 +32,6 @@ pageBanner([
   echo paginate_links();
   ?>
 
-
   <?php
   while (have_posts()) {
     the_post(); ?>
@@ -53,8 +50,5 @@ pageBanner([
 
   <?php } echo paginate_links();?>
 </div>
-
-
-
 
 <?php get_footer(); ?>
