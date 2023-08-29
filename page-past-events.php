@@ -1,11 +1,14 @@
 <?php
 
 get_header();
-pageBanner([
-  'title' => "Past Events",
-  'subtitle' => "See our past events"
-]);;
- ?>
+$page_banner_args = [
+  'title' => 'Past Events',
+  'subtitle' => 'See our past events',
+  'photo' => get_theme_file_uri('/images/library-hero.jpg'),
+];
+
+pageBanner($page_banner_args);
+?>
 
 <div class="container container--narrow page-section">
   <?php

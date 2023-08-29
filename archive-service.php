@@ -5,8 +5,6 @@ $page_banner_args = [
   'title' => 'My Services',
   'subtitle' => 'How can I help you today?',
   'photo' => get_theme_file_uri('/images/bread.jpg'),
-
-  
 ];
 
 pageBanner($page_banner_args);

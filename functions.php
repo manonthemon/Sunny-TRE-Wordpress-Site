@@ -3,12 +3,18 @@ function pageBanner($args = array()) {
     // Provide default values for 'title' and 'subtitle' if they are missing in $args
     $title = isset($args['title']) ? $args['title'] : get_the_title();
     $subtitle = isset($args['subtitle']) ? $args['subtitle'] : get_field('page_banner_subtitle');
-
-    // Use the provided 'photo' URL if available, otherwise use the default
-    $photo_url = isset($args['photo']) ? $args['photo'] : get_theme_file_uri('/images/ocean.jpg');
+    
+    // Provide a default photo URL if 'photo' is missing in $args and custom field is not set
+    if (isset($args['photo'])) {
+        $photo_url = $args['photo'];
+    } elseif (get_field('page_banner_background_image')) {
+        $photo_url = get_field('page_banner_background_image')['sizes']['pageBanner'];
+    } else {
+        $photo_url = isset($args['default_photo']) ? $args['default_photo'] : get_theme_file_uri('/images/ocean.jpg');
+    }
 
     // Set the background color (replace #ff9900 with your desired color code)
-    $background_color = isset($args['background_color']) ? $args['background_color'] : '#fffff';
+    $background_color = isset($args['background_color']) ? $args['background_color'] : '#626262';
 
     // Output the HTML
     ?>

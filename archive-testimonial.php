@@ -1,9 +1,13 @@
 <?php
+
 get_header();
-pageBanner([
+$page_banner_args = [
   'title' => 'Testimonials',
-  'subtitle' => 'See what my clients have to say'
-]);
+  'subtitle' => 'What my clients have to say',
+  'photo' => get_theme_file_uri('/images/bread.jpg'),
+];
+
+pageBanner($page_banner_args);
 ?>
 
 <div class="container container--narrow page-section">

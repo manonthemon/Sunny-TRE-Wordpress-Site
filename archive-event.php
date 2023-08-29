@@ -1,9 +1,13 @@
 <?php
-get_header(); 
-pageBanner([
-  'title' => "Upcoming Events",
-  'subtitle' => "See all the upcoming events"
-]);
+
+get_header();
+$page_banner_args = [
+  'title' => 'Events',
+  'subtitle' => 'See our upcoming events',
+  'photo' => get_theme_file_uri('/images/library-hero.jpg'),
+];
+
+pageBanner($page_banner_args);
 ?>
 
 <div class="container container--narrow page-section">

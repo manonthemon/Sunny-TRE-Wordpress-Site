@@ -1,9 +1,13 @@
 <?php
+
 get_header();
-pageBanner([
+$page_banner_args = [
   'title' => 'Gratitude Journal',
-  'subtitle' => 'What are you grateful for today?'
-]);
+  'subtitle' => 'What are you thankful for today?',
+  'photo' => get_theme_file_uri('/images/apples.jpg'),
+];
+
+pageBanner($page_banner_args);
 ?>
 
 <div class="container container--narrow page-section">
