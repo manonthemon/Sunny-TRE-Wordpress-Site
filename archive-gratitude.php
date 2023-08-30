@@ -12,7 +12,7 @@ pageBanner($page_banner_args);
 
 <div class="container container--narrow page-section">
 
-<p>have you ever considered the effects of starting a gratitude practice for yourself? It can have many benefits, cognitively , 
+<p>Have you ever considered the effects of starting a gratitude practice for yourself? It can have many benefits, cognitively , 
 enhancing your mood and even physically on the body. I have written my experiences and the new science behind these practices and 
 will be adding more pages as I uncover more about this simple, yet effective way of enhancing our life experiences. Enjoy, and thanks for reading!</p>
 <hr />
@@ -36,6 +36,5 @@ will be adding more pages as I uncover more about this simple, yet effective way
 
   <?php } echo paginate_links();?>
 </div>
-
 
 <?php get_footer(); ?>

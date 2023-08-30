@@ -14,7 +14,7 @@ function pageBanner($args = array()) {
     }
 
     // Set the background color (replace #ff9900 with your desired color code)
-    $background_color = isset($args['background_color']) ? $args['background_color'] : '#626262';
+    $background_color = isset($args['background_color']) ? $args['background_color'] : '#323232';
 
     // Output the HTML
     ?>
@@ -38,6 +38,7 @@ function pageBanner($args = array()) {
 
 function sunny_files() {
     wp_enqueue_script('main_sunny_js' , get_theme_file_uri('/js/scripts-bundled.js'), NULL, microtime(), true );
+    wp_enqueue_script('custom_scripts', get_theme_file_uri('/js/scripts.js'), array('jquery'), microtime(), true);
     wp_enqueue_style('google_fonts' , '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
     wp_enqueue_style('font_awesome' , '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
     wp_enqueue_style('sunny_main_styles' , get_stylesheet_uri(), NULL, microtime());
@@ -61,6 +62,11 @@ add_action( 'after_setup_theme', 'sunny_features');
 
 function sunny_adjust_queries($query) {
 
+    if (!is_admin() AND is_post_type_archive ('gratitude') AND $query-> is_main_query()) {
+        $query->set('orderby', 'date');
+        $query->set('posts_per_page', '10');
+    }
+    
     if (!is_admin() AND is_post_type_archive ('service') AND $query-> is_main_query()) {
         $query->set('orderby', 'title');
         $query->set('order', 'ASC');
