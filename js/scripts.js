@@ -1,6 +1,6 @@
 class Search {
   constructor() {
-    alert('Search is working');
+
   }
 }
 
