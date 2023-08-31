@@ -3,6 +3,7 @@ class Search {
     this.openButton = document.querySelector(".search-trigger");
     this.closeButton = document.querySelector(".search-overlay__close");
     this.searchOverlay = document.querySelector(".search-overlay");
+    this.searchField =  document.getElementById("search-term")
     this.isOverlayOpen = false;
     this.events();
   }
@@ -11,7 +12,18 @@ class Search {
     this.openButton.addEventListener("click", () => this.openOverlay());
     this.closeButton.addEventListener("click", () => this.closeOverlay());
     document.addEventListener('keydown', (event) => this.handleKeyPress(event));
+    this.searchField.addEventListener("keydown", this.typingLogic); 
+  
+
   }
+
+
+typingLogic() {
+console.log("Typing")
+}
+
+
+
 
   handleKeyPress(event) {
     if(event.keyCode === 27 && this.isOverlayOpen) {
