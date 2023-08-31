@@ -6,6 +6,7 @@ class Search {
     this.searchField =  document.getElementById("search-term")
     this.isOverlayOpen = false;
     this.events();
+    this.typingTimer;
   }
 
   events() {
@@ -13,13 +14,13 @@ class Search {
     this.closeButton.addEventListener("click", () => this.closeOverlay());
     document.addEventListener('keydown', (event) => this.handleKeyPress(event));
     this.searchField.addEventListener("keydown", this.typingLogic); 
-  
-
   }
 
 
-typingLogic() {
-console.log("Typing")
+  typingLogic() {
+    clearTimeout(this.typingTimer); 
+    this.typingTimer = setTimeout(function() {console.log("TIMEOUT TEST")}, 2000);
+
 }
 
 
