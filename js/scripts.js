@@ -4,28 +4,43 @@ class Search {
     this.closeButton = document.querySelector(".search-overlay__close");
     this.searchOverlay = document.querySelector(".search-overlay");
     this.searchField =  document.getElementById("search-term")
+    this.resultsDiv = document.querySelector(".search-overlay__results");
     this.isOverlayOpen = false;
     this.events();
     this.typingTimer;
+    this.isSpinnerVisible = false;
+    this.previousValue;
   }
 
   events() {
     this.openButton.addEventListener("click", () => this.openOverlay());
     this.closeButton.addEventListener("click", () => this.closeOverlay());
     document.addEventListener('keydown', (event) => this.handleKeyPress(event));
-    this.searchField.addEventListener("keydown", this.typingLogic); 
+    this.searchField.addEventListener("keyup",() => this.typingLogic());
   }
 
-
   typingLogic() {
-    clearTimeout(this.typingTimer); 
-    this.typingTimer = setTimeout(function() {console.log("TIMEOUT TEST")}, 2000);
-
-}
-
-
-
-
+    if(this.searchField.value != this.previousValue) {
+      clearTimeout(this.typingTimer);
+      if (!this.isSpinnerVisible) {
+       this.resultsDiv.innerHTML ='<div class="spinner-loader"></div>';
+       this.isSpinnerVisible = true;
+      }
+       this.typingTimer = setTimeout(() => {
+         this.getResults(); // Arrow function maintains the correct 'this' context
+       }, 2000);
+    }
+    
+ 
+    this.previousValue = this.searchField.value;
+  }
+  
+  getResults() {
+    this.resultsDiv.innerHTML = "Imagine real search results here";
+    this.isSpinnerVisible = false;
+  }
+  
+  
   handleKeyPress(event) {
     if(event.keyCode === 27 && this.isOverlayOpen) {
       this.closeOverlay();
