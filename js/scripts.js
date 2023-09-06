@@ -40,19 +40,21 @@ class Search {
   }
 
   getResults() {
-    fetch('https://sunnytre.local/wp-json/wp/v2/posts?search=' + this.searchField.value)
+    fetch(sunnyData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.value)
     .then(response => response.json())
     .then(posts => {
     
       this.resultsDiv.innerHTML = `
       <h2 class="search-overlay__section-title">General Information</h2>
-      <ul class="link=list min-list">
+      ${ posts.length ? '<ul class="link=list min-list">' : '<p>No general information matches that search.</p>'}
       
       ${posts.map(item => `<li><a href="${posts[0].link}">${item.title.rendered}</a></li>`).join('')}
-      </ul>
+     ${posts.length ? '</ul>' : ''}
       `})
+     
     .catch(error => {
       console.error('Error fetching data:', error);
+      this.isSpinnerVisible = false;
     });
   }
 
