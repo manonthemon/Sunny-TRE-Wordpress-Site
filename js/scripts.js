@@ -66,6 +66,8 @@ class Search {
   openOverlay() {
     this.searchOverlay.classList.add("search-overlay--active");
     document.querySelector("body").classList.add("body-no-scroll");
+    this.searchField.value = '';
+    setTimeout(() => { var searchField = document.getElementById("search-term"); searchField.focus();}, 301)
     this.isOverlayOpen = true;
   }
 
