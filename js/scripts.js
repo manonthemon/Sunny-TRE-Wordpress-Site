@@ -39,15 +39,18 @@ class Search {
     this.previousValue = this.searchField.value;
   }
 
-
-
-
   getResults() {
     fetch('https://sunnytre.local/wp-json/wp/v2/posts?search=' + this.searchField.value)
     .then(response => response.json())
     .then(posts => {
-      alert(posts[0].title.rendered);
-    })
+    
+      this.resultsDiv.innerHTML = `
+      <h2 class="search-overlay__section-title">General Information</h2>
+      <ul class="link=list min-list">
+      
+      ${posts.map(item => `<li><a href="${posts[0].link}">${item.title.rendered}</a></li>`).join('')}
+      </ul>
+      `})
     .catch(error => {
       console.error('Error fetching data:', error);
     });
