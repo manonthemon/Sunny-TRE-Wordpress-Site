@@ -39,9 +39,18 @@ class Search {
     this.previousValue = this.searchField.value;
   }
 
+
+
+
   getResults() {
-    this.resultsDiv.innerHTML = "Imagine real search results here";
-    this.isSpinnerVisible = false;
+    fetch('https://sunnytre.local/wp-json/wp/v2/posts?search=' + this.searchField.value)
+    .then(response => response.json())
+    .then(posts => {
+      alert(posts[0].title.rendered);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
   }
 
   handleKeyPress(event) {
