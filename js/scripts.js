@@ -41,21 +41,34 @@ class Search {
   }
 
   getResults() {
-    fetch(sunnyData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.value)
-      .then(response => response.json())
-      .then(posts => {
+    const searchQuery = this.searchField.value;
+    const postsEndpoint = `${sunnyData.root_url}/wp-json/wp/v2/posts?search=${searchQuery}`;
+    const pagesEndpoint = `${sunnyData.root_url}/wp-json/wp/v2/pages?search=${searchQuery}`;
+  
+    // Fetch posts and pages data concurrently using Promise.all
+    Promise.all([fetch(postsEndpoint), fetch(pagesEndpoint)])
+      .then(([postsResponse, pagesResponse]) => {
+        return Promise.all([postsResponse.json(), pagesResponse.json()]);
+      })
+      .then(([posts, pages]) => {
+        // Combine posts and pages results
+        const combinedResults = [...posts, ...pages];
+  
         this.resultsDiv.innerHTML = `
           <h2 class="search-overlay__section-title">General Information</h2>
-          ${posts.length ? '<ul class="link=list min-list">' : '<p>No general information matches that search.</p>'}
-          ${posts.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
-          ${posts.length ? '</ul>' : ''}
+          ${combinedResults.length ? '<ul class="link=list min-list">' : '<p>No general information matches that search.</p>'}
+          ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+          ${combinedResults.length ? '</ul>' : ''}
         `;
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        this.resultsDiv.innerHTML = `
+        <p class="search-overlay__section-title">Unexpected error, please try again</p>`
         this.isSpinnerVisible = false;
       });
   }
+  
 
   handleKeyPress(event) {
     if (event.keyCode === 27 && this.isOverlayOpen) {
