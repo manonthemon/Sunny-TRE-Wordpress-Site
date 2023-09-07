@@ -1,4 +1,12 @@
 <?php 
+
+
+function sunny_custom_rest(){
+    register_rest_field('post','authorName', [
+    'get_callback' => function(){return get_the_author();}     
+    ]);
+}
+add_action('rest_api_init', 'sunny_custom_rest');
 function pageBanner($args = array()) {
     // Provide default values for 'title' and 'subtitle' if they are missing in $args
     $title = isset($args['title']) ? $args['title'] : get_the_title();
