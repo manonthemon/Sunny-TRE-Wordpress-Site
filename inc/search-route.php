@@ -7,22 +7,54 @@ function sunnyRegisterSearch() {
         'callback' => 'sunnySearchResults'
     ]);
 }
-function sunnySearchResults(){
-   $services = new WP_Query([
-    'post_type' => 'service',
+function sunnySearchResults($data){
+   $mainQuery = new WP_Query([
+    'post_type' => ['post', 'page', 'service', 'testimonial' , 'event'],
+    's' => sanitize_text_field($data['term'])
    ]);
 
-   $servicesResults = [];
+   $results = [
+    'generalInfo' => [],
+    'services' => [],
+    'testimonials' =>  [],
+    'events' => []
+   ];
 
-while($services->have_posts()) {
-    $services->the_post();
-    array_push($servicesResults, [
+while($mainQuery->have_posts()) {
+    $mainQuery->the_post();
+
+if(get_post_type() == 'post' OR get_post_type() == 'page') {
+    array_push($results['generalInfo'], [
+        'title'=> get_the_title(),
+        'permalink' => get_the_permalink(),
+        'postType' => get_post_type(),
+        'authorName' => get_the_author(),
+    ]);
+}
+
+if(get_post_type() == 'service') {
+    array_push($results['services'], [
         'title'=> get_the_title(),
         'permalink' => get_the_permalink(),
     ]);
 }
 
-   return $servicesResults;
+if(get_post_type() == 'testimonial') {
+    array_push($results['testimonials'], [
+        'title'=> get_the_title(),
+        'permalink' => get_the_permalink(),
+    ]);
+}
+
+if(get_post_type() == 'event') {
+    array_push($results['events'], [
+        'title'=> get_the_title(),
+        'permalink' => get_the_permalink(),
+    ]);
+}
+}
+
+   return $results;
 }
 ?>
 

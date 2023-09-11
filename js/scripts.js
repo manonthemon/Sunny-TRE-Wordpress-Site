@@ -36,35 +36,55 @@ class Search {
         this.isSpinnerVisible = false;
       }
     }
-  
+
     this.previousValue = this.searchField.value;
   }
 
   getResults() {
+    // Adjust the URL to your custom REST endpoint
     const searchQuery = this.searchField.value;
-    const postsEndpoint = `${sunnyData.root_url}/wp-json/wp/v2/posts?search=${searchQuery}`;
-    const pagesEndpoint = `${sunnyData.root_url}/wp-json/wp/v2/pages?search=${searchQuery}`;
+    const customSearchEndpoint = `${sunnyData.root_url}/wp-json/sunny/v1/search?term=${searchQuery}`;
   
-    // Fetch posts and pages data concurrently using Promise.all
-    Promise.all([fetch(postsEndpoint), fetch(pagesEndpoint)])
-      .then(([postsResponse, pagesResponse]) => {
-        return Promise.all([postsResponse.json(), pagesResponse.json()]);
+    fetch(customSearchEndpoint)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.status}`);
+        }
+        return response.json();
       })
-      .then(([posts, pages]) => {
-        // Combine posts and pages results
-        const combinedResults = [...posts, ...pages];
-  
+      .then(results => {
+        // Use results to update the HTML
         this.resultsDiv.innerHTML = `
-          <h2 class="search-overlay__section-title">General Information</h2>
-          ${combinedResults.length ? '<ul class="link=list min-list">' : '<p>No general information matches that search.</p>'}
-          ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a> ${item.type =='post'? `by ${item.authorName}` : '' }  </li>`).join('')}
-          ${combinedResults.length ? '</ul>' : ''}
+          <div class="row">
+            <div class="one-third">
+              <h2 class="search-overlay__section-title">General Information</h2>
+              ${results.generalInfo.length ? '<ul class="link=list min-list">' : '<p>No general information matches that search.</p>'}
+              ${results.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == 'post' ? `by ${item.authorName}` : ''}</li>`).join('')}
+              ${results.generalInfo.length ? '</ul>' : ''}
+            </div>
+            <div class="one-third">
+              <h2 class="search-overlay__section-title">Services</h2>
+              ${results.services.length ? '<ul class="link=list min-list">' : `<p>No services match that search. <a href="${sunnyData.root_url}/services"> View all services</a></p>`}
+              ${results.services.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+              ${results.services.length ? '</ul>' : ''}
+            </div>
+            <div class="one-third">
+              <h2 class="search-overlay__section-title">Testimonials</h2>
+              ${results.testimonials.length ? '<ul class="link=list min-list">' : `<p>No testimonials match that search. <a href="${sunnyData.root_url}/testimonials"> View all testimonials</a></p>`}
+              ${results.testimonials.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == 'post' ? `by ${item.authorName}` : ''}</li>`).join('')}
+              ${results.testimonials.length ? '</ul>' : ''}
+              <h2 class="search-overlay__section-title">Events</h2>
+              ${results.events.length ? '<ul class="link=list min-list">' : `<p>No events match that search. <a href="${sunnyData.root_url}/events"> View all events</a></p>`}
+              ${results.events.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == 'post' ? `by ${item.authorName}` : ''}</li>`).join('')}
+              ${results.events.length ? '</ul>' : ''}
+            </div>
+          </div>
         `;
       })
       .catch(error => {
         console.error('Error fetching data:', error);
         this.resultsDiv.innerHTML = `
-        <p class="search-overlay__section-title">Unexpected error, please try again</p>`
+          <p class="search-overlay__section-title">Unexpected error, please try again</p>`;
         this.isSpinnerVisible = false;
       });
   }
@@ -79,8 +99,11 @@ class Search {
   openOverlay() {
     this.searchOverlay.classList.add("search-overlay--active");
     document.querySelector("body").classList.add("body-no-scroll");
-    this.searchField.value = '';
-    setTimeout(() => { var searchField = document.getElementById("search-term"); searchField.focus();}, 301)
+    this.searchField.value = "";
+    setTimeout(() => {
+      var searchField = document.getElementById("search-term");
+      searchField.focus();
+    }, 301);
     this.isOverlayOpen = true;
   }
 
@@ -91,7 +114,9 @@ class Search {
   }
 
   addSearchHTML() {
-    document.querySelector("body").insertAdjacentHTML("beforeend", `
+    document.querySelector("body").insertAdjacentHTML(
+      "beforeend",
+      `
       <div class="search-overlay">
         <div class="search-overlay__top">
           <div class="container">
@@ -104,7 +129,8 @@ class Search {
           <div class="search-overlay__results"></div>
         </div>
       </div>
-    `);
+    `
+    );
   }
 }
 
