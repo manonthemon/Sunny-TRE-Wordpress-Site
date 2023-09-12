@@ -67,6 +67,30 @@ if(get_post_type() == 'event') {
 }
 }
 
+$serviceRelationshipQuery = new WP_Query([
+    'post_type' => 'event',
+    'meta_query' => [
+        [
+            'key' => 'related_services',
+            'compare' => 'LIKE',
+            'value' => '"1028"',
+        ]
+    ],
+]);
+
+while($serviceRelationshipQuery-> have_posts()) {
+    $serviceRelationshipQuery->the_post();
+
+    if(get_post_type() == 'event') {
+        array_push($results['events'], [
+            'title'=> get_the_title(),
+            'permalink' => get_the_permalink(),
+            'image' => get_the_post_thumbnail_url(0, 'serviceLandscape'),
+        ]);
+    }
+}
+$results['events'] = array_values(array_unique($results['events'], SORT_REGULAR));
+
    return $results;
 }
 ?>
