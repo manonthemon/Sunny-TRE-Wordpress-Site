@@ -549,6 +549,7 @@ Version: 1.0
     background-color: #DEDEDE;
     padding: 20px;
     text-align: center;
+    margin-top: 20px;
   }
   .search-form label {
     display: block;
