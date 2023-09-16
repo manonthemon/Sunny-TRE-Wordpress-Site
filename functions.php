@@ -5,7 +5,8 @@ function sunny_custom_rest()
 {
     register_rest_field('post', 'authorName', [
         'get_callback' => function () {
-            return get_the_author(); }
+            return get_the_author();
+        }
     ]);
 }
 add_action('rest_api_init', 'sunny_custom_rest');
@@ -126,12 +127,31 @@ function redirectSubsToFrontend()
 // Remove admin bar for subscribers
 
 add_action('wp_loaded', 'noSubsAdminBar');
-
 function noSubsAdminBar()
 {
     $ourCurrentUser = wp_get_current_user();
     if (count($ourCurrentUser->roles) == 1 and $ourCurrentUser->roles[0] == 'subscriber') {
         show_admin_bar(false);
     }
-
 }
+
+// Customized login screen
+
+add_filter('login_headerurl' , 'ourHeaderUrl');
+function ourHeaderUrl() {
+    return esc_url(site_url('/'));
+}
+
+add_action('login_enqueue_scripts', 'ourLoginCSS');
+
+function ourLoginCSS () {
+    wp_enqueue_style('sunny_main_styles', get_stylesheet_uri(), NULL, microtime());
+    wp_enqueue_style('google_fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+}
+
+add_filter('login_headertitle', 'ourLoginTitle');
+
+function ourLoginTitle() {
+
+    return get_bloginfo('name');
+};
