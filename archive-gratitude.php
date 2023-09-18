@@ -2,7 +2,7 @@
 
 get_header();
 $page_banner_args = [
-  'title' => 'Gratitude Journal',
+  'title' => 'Gratitude',
   'subtitle' => 'What are you thankful for today?',
   'photo' => get_theme_file_uri('/images/apples.jpg'),
 ];
