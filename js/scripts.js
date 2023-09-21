@@ -260,6 +260,8 @@ class MyGratitudes {
       
         // Update the UI with the server response data
         this.updateUIWithServerData(thisGratitude, data);
+
+        //This reloads the page to reflect changes because I currently don't know how to do it differently
         window.location.reload()
       
         console.log("UI updated with server data");
