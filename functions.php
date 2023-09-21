@@ -58,6 +58,7 @@ function sunny_files()
     wp_enqueue_style('sunny_main_styles', get_stylesheet_uri(), NULL, microtime());
     wp_localize_script('custom_scripts', 'sunnyData', [
         'root_url' => get_site_url(),
+        'nonce' => wp_create_nonce('wp_rest')
     ]);
 }
 
